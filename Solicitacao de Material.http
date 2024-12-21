@@ -1,0 +1,6 @@
+@Solicitacao_de_Material_HostAddress = http://localhost:5005
+
+GET {{Solicitacao_de_Material_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
