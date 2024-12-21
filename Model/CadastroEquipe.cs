@@ -8,6 +8,6 @@ namespace Solicitacao_de_Material.Model
         [Required]
         public int Id { get; set; }
         [Required]
-        public int Prefixo { get; set; }
+        public string Prefixo { get; set; }
     }
 }
