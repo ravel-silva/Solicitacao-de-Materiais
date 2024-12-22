@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
 
@@ -8,7 +9,11 @@ namespace Solicitacao_de_Material.Controllers
     [Route("[controller]")]
     public class CadastroEquipesController : ControllerBase
     {
-        private static List<CadastroEquipe> equipes = new List<CadastroEquipe>(); // This is a list of CadastroEquipe objects
+        private EquipeContext _context;
+        public CadastroEquipesController(EquipeContext context)
+        {
+            _context = context;
+        }
         // This method creates a team
         [HttpPost]
         public IActionResult CreateTeam([FromBody] CreateCadastroEquipeDto CadastroEquipeDto)
@@ -17,25 +22,26 @@ namespace Solicitacao_de_Material.Controllers
             {
                 Prefixo = CadastroEquipeDto.Prefixo
             };
-            equipes.Add(equipe);
+            _context.Equipes.Add(equipe);
             return Ok();
         }
         // This method returns the list of teams
         [HttpGet]
-        public IActionResult GetTeams()
+        public IActionResult GetTeams() // vericar erro do get, nao esta exibindo a lista
         {
-            return Ok(equipes);
+
+            return Ok(_context);
         }
         // This method deletes a team
         [HttpDelete("{id}")]
         public IActionResult DeleteTeam(int id)
         {
-            CadastroEquipe equipe = equipes.FirstOrDefault(equipe => equipe.Id == id);
+            var equipe = _context.Equipes.FirstOrDefault(Equipes => Equipes.Id == id);
             if (equipe == null)
             {
                 return NotFound();
             }
-            equipes.Remove(equipe);
+            _context.Remove(equipe);
             return NoContent();
         }
     }
