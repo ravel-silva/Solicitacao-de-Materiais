@@ -9,5 +9,6 @@ namespace Solicitacao_de_Material.Data
         {   
         }
         public DbSet<CadastroEquipe> Equipes { get; set; }
+        public DbSet<CadastroFuncionario> Funcionarios { get; set; }
     }
 }
