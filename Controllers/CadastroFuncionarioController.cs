@@ -17,20 +17,31 @@ namespace Solicitacao_de_Material.Controllers
         [HttpPost]
         public IActionResult CreateFuncionario([FromBody] CreateCadastroFuncionarioDto CadastroFuncionarioDto)
         {
-            if(CadastroFuncionarioDto == null || string.IsNullOrWhiteSpace(CadastroFuncionarioDto.Matricula)
+            if (CadastroFuncionarioDto == null || string.IsNullOrWhiteSpace(CadastroFuncionarioDto.Matricula.ToString())
                 || string.IsNullOrWhiteSpace(CadastroFuncionarioDto.Nome))
             {
                 return BadRequest("Dados invalidos ou incompletos");
             }
             var novoFuncionario = new CadastroFuncionario
             {
-               Nome = CadastroFuncionarioDto.Nome,
-               Matricula = CadastroFuncionarioDto.Matricula
+                Nome = CadastroFuncionarioDto.Nome,
+                Matricula = CadastroFuncionarioDto.Matricula
             };
-            _context.Funcionarios.Add(novoFuncionario); 
+            _context.Funcionarios.Add(novoFuncionario);
             _context.SaveChanges();
-
             return Ok();
+        }
+        [HttpGet]
+        public IActionResult GetFuncionarios()
+        {
+            var funcionarios = _context.Funcionarios.Select(funcionarios => new ReadCadastroFuncionarioDto
+            {
+                Id = funcionarios.Id,
+                Nome = funcionarios.Nome,
+                Matricula = funcionarios.Matricula.ToString()
+            });
+            return Ok(funcionarios);
+
         }
     }
 }

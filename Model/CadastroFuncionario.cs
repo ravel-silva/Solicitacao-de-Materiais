@@ -10,6 +10,6 @@ namespace Solicitacao_de_Material.Model
         [Required]
         public string Nome { get; set; }
         [Required]
-        public string Matricula { get; set; }
+        public int Matricula { get; set; }
     }
 }

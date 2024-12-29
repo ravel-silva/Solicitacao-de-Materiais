@@ -7,6 +7,6 @@ namespace Solicitacao_de_Material.Data.Dtos
         [Required]
         public string Nome { get; set; }
         [Required]
-        public string Matricula { get; set; }
+        public int Matricula { get; set; }
     }
 }

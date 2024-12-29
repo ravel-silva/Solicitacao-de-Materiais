@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Solicitacao_de_Material.Data;
+using Solicitacao_de_Material.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<CadastroEquipeService>();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("EquipeConnection");

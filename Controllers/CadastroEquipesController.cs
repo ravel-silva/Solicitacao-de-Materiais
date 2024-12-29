@@ -11,11 +11,11 @@ namespace Solicitacao_de_Material.Controllers
     public class CadastroEquipesController : ControllerBase
     {
         private EquipeContext _context;
-        private readonly CadastroEquipeService _cadastroEquipeService;
-        public CadastroEquipesController(EquipeContext context)
+        private CadastroEquipeService _cadastroEquipeService;
+        public CadastroEquipesController(EquipeContext context, CadastroEquipeService equipeService)
         {
             _context = context;
-            _cadastroEquipeService = new CadastroEquipeService();
+            _cadastroEquipeService = equipeService;
         }
         // This method creates a team
         [HttpPost]
@@ -25,52 +25,46 @@ namespace Solicitacao_de_Material.Controllers
             {
                 return BadRequest("Dados invalidos ou incompletos");
             }
-            var novaEquipes = new CadastroEquipe
-            {
-                Prefixo = CadastroEquipeDto.Prefixo
-            };
-            _context.Equipes.Add(novaEquipes);
-            _context.SaveChanges();
-            return Ok();
+
+            _cadastroEquipeService.CreateEquipe(CadastroEquipeDto);
+            return Ok("Equipe Criada com Sucesso");
         }
 
         // This method returns the list of teams
         [HttpGet]
-        public IActionResult GetTeams() // vericar erro do get, nao esta exibindo a lista
+        public IActionResult GetTeams()
         {
-            var equipes = _context.Equipes.Select(equipe => new ReadCadastroEquipeDto
+            _cadastroEquipeService.GetEquipe();
+            if (_cadastroEquipeService.GetEquipe() == null || !_cadastroEquipeService.GetEquipe().Any())
             {
-                Id = equipe.Id,
-                Prefixo = equipe.Prefixo
-            });
-            return Ok(equipes);
+                return NotFound("Nenhuma equipe localizada");
+            }
+
+            return Ok(_cadastroEquipeService.GetEquipe());
         }
+        //this method returns the team by id
         [HttpGet("{id}")]
-        public IActionResult GetTeamId(int id)
+        public IActionResult GetTeamId(int Id)
         {
-            var equipes = _context.Equipes.Select(equipe => new ReadCadastroEquipeDto
-            {
-                Id = equipe.Id,
-                Prefixo = equipe.Prefixo
-            }).FirstOrDefault(equipe => equipe.Id == id);
-            if (equipes == null)
+            var equipe = _cadastroEquipeService.GetEquipeId(Id);
+
+            if (equipe == null || !equipe.Any())
             {
                 return NotFound("Equipe não localizada");
             }
-            return Ok(equipes);
+            return Ok(equipe);
         }
 
-            // This method deletes a team
-            [HttpDelete("{id}")]
+        // This method deletes a team
+        [HttpDelete("{id}")]
         public IActionResult DeleteTeam(int id)
         {
-            var equipe = _context.Equipes.FirstOrDefault(Equipes => Equipes.Id == id);
-            if (equipe == null)
+            if (!_cadastroEquipeService.DeleleteEquipe(id))
             {
                 return NotFound("Equipe não localizada");
             }
-            _context.Remove(equipe);
-            return NoContent();
+            return Ok("Equipe Deletada");
         }
+            
     }
 }
