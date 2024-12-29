@@ -8,7 +8,8 @@ namespace Solicitacao_de_Material.Data
         public EquipeContext(DbContextOptions<EquipeContext> options) : base(options)
         {   
         }
-        public DbSet<CadastroEquipe> Equipes { get; set; }
-        public DbSet<CadastroFuncionario> Funcionarios { get; set; }
+        public DbSet<Equipe> Equipes { get; set; }
+        public DbSet<Funcionario> Funcionarios { get; set; }
+        public DbSet<EquipeFuncionario> RelationshipEquipeFuncionario { get; set; }
     }
 }

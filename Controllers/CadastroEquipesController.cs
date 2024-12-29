@@ -10,11 +10,9 @@ namespace Solicitacao_de_Material.Controllers
     [Route("[controller]")]
     public class CadastroEquipesController : ControllerBase
     {
-        private EquipeContext _context;
         private CadastroEquipeService _cadastroEquipeService;
         public CadastroEquipesController(EquipeContext context, CadastroEquipeService equipeService)
         {
-            _context = context;
             _cadastroEquipeService = equipeService;
         }
         // This method creates a team

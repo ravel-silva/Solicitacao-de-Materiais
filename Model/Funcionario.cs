@@ -2,7 +2,7 @@
 
 namespace Solicitacao_de_Material.Model
 {
-    public class CadastroFuncionario
+    public class Funcionario
     {
         [Key]
         [Required]
@@ -11,5 +11,7 @@ namespace Solicitacao_de_Material.Model
         public string Nome { get; set; }
         [Required]
         public int Matricula { get; set; }
+
+        public virtual ICollection<EquipeFuncionario> EquipesFuncionarios { get; set; }
     }
 }

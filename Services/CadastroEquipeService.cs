@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Solicitacao_de_Material.Data;
+﻿using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
 
@@ -17,7 +15,7 @@ namespace Solicitacao_de_Material.Services
         //this method creates a new team
         public void CreateEquipe(CreateCadastroEquipeDto cadastroEquipeDto)
         {
-            var novaEquipe = new CadastroEquipe
+            var novaEquipe = new Equipe
             {
                 Prefixo = cadastroEquipeDto.Prefixo,
             };
@@ -38,6 +36,7 @@ namespace Solicitacao_de_Material.Services
             return equipes.ToList();
         }
 
+        // This method views the team by ID
         public List<ReadCadastroEquipeDto> GetEquipeId(int id)
         {
             var equipe = _context.Equipes
@@ -50,8 +49,9 @@ namespace Solicitacao_de_Material.Services
                  .ToList(); // Retorna como lista
 
             return equipe;
-            // se equipes for diferente de nulo, retorna uma lista com equipes, senão retorna uma lista vazia
+            
         }
+        // this method deletes a team
         public bool DeleleteEquipe(int id)
         {
             var equipe = _context.Equipes.FirstOrDefault(e => e.Id == id);
@@ -59,21 +59,9 @@ namespace Solicitacao_de_Material.Services
             {
                 return false;
             }
-            _context.Equipes.Remove(equipe);''
+            _context.Equipes.Remove(equipe);
             _context.SaveChanges();
             return true;
         }
-    }
-
-
-        /*public ReadCadastroEquipeDto ObterCadastroEquipeDto(CadastroEquipe cadastroEquipe)
-        {
-            //mapeamento manual
-            return new ReadCadastroEquipeDto
-            {
-                Id = cadastroEquipe.Id,
-                Prefixo = cadastroEquipe.Prefixo
-            };
-        }*/
-    
+    }    
 }

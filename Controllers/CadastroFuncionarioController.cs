@@ -22,7 +22,7 @@ namespace Solicitacao_de_Material.Controllers
             {
                 return BadRequest("Dados invalidos ou incompletos");
             }
-            var novoFuncionario = new CadastroFuncionario
+            var novoFuncionario = new Funcionario
             {
                 Nome = CadastroFuncionarioDto.Nome,
                 Matricula = CadastroFuncionarioDto.Matricula
