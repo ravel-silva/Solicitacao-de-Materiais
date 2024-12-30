@@ -4,7 +4,7 @@ using Solicitacao_de_Material.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<CadastroEquipeService>();
+builder.Services.AddScoped<TeamService>();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("EquipeConnection");

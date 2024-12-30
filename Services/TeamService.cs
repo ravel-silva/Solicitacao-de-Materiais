@@ -4,10 +4,10 @@ using Solicitacao_de_Material.Model;
 
 namespace Solicitacao_de_Material.Services
 {
-    public class CadastroEquipeService
+    public class TeamService
     {
         private EquipeContext _context;
-        public CadastroEquipeService(EquipeContext context)
+        public TeamService(EquipeContext context)
         {
             _context = context;
         }

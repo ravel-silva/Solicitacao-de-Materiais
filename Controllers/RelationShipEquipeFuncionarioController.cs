@@ -8,10 +8,10 @@ namespace Solicitacao_de_Material.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RelationShipController : ControllerBase
+    public class RelationShipEquipeFuncionarioController : ControllerBase
     {
         private EquipeContext _context;
-        public RelationShipController(EquipeContext context)
+        public RelationShipEquipeFuncionarioController(EquipeContext context)
         {
             _context = context;
         }

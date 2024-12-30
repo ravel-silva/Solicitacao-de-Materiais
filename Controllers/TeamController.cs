@@ -8,10 +8,10 @@ namespace Solicitacao_de_Material.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CadastroEquipesController : ControllerBase
+    public class TeamController : ControllerBase
     {
-        private CadastroEquipeService _cadastroEquipeService;
-        public CadastroEquipesController(EquipeContext context, CadastroEquipeService equipeService)
+        private TeamService _cadastroEquipeService;
+        public TeamController(EquipeContext context, TeamService equipeService)
         {
             _cadastroEquipeService = equipeService;
         }

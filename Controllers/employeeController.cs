@@ -7,10 +7,10 @@ namespace Solicitacao_de_Material.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CadastroFuncionarioController : ControllerBase
+    public class employeeController : ControllerBase
     {
         private EquipeContext _context;
-        public CadastroFuncionarioController(EquipeContext context)
+        public employeeController(EquipeContext context)
         {
             _context = context;
         }
