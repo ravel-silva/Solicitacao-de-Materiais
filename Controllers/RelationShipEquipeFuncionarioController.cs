@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
-using Solicitacao_de_Material.Migrations;
 using Solicitacao_de_Material.Model;
+using Solicitacao_de_Material.Services;
 
 namespace Solicitacao_de_Material.Controllers
 {
@@ -10,12 +9,13 @@ namespace Solicitacao_de_Material.Controllers
     [Route("[controller]")]
     public class RelationShipEquipeFuncionarioController : ControllerBase
     {
-        private EquipeContext _context;
-        public RelationShipEquipeFuncionarioController(EquipeContext context)
+        private RelationShipEquipeFuncionarioService _service;
+        public RelationShipEquipeFuncionarioController(RelationShipEquipeFuncionarioService service)
         {
-            _context = context;
+            _service = service;
         }
-        public IActionResult CreateRelationship([FromBody] RelationshipEquipeFuncionarioDto relationshipEquipeFuncionarioDto)
+        [HttpPost]
+        public IActionResult CreateRelationship([FromBody] CreateRelationshipEquipeFuncionarioDto relationshipEquipeFuncionarioDto)
         {
             if (relationshipEquipeFuncionarioDto == null
                 || relationshipEquipeFuncionarioDto.equipeId == 0
@@ -23,17 +23,14 @@ namespace Solicitacao_de_Material.Controllers
             {
                 return BadRequest("Dados invalidos ou incompletos");
             }
-            // Verificar se a equipe e o funcionário existem no banco de dados
-            var equipe = _context.Equipes.FirstOrDefault(equipes => equipes.Id == relationshipEquipeFuncionarioDto.equipeId);
-            var funcionario = _context.Funcionarios.FirstOrDefault(funcionarios => funcionarios.Id == relationshipEquipeFuncionarioDto.funcionarioId);
-            if (equipe == null || funcionario == null)
+
+            if (_service.CheckTeamEmployee(relationshipEquipeFuncionarioDto) != true)
             {
                 return BadRequest("Equipe ou Funcionário não localizado");
             }
             // Verificar se um funcionário já está em uma equipe
-            var funcionarioNaEquipe = _context.RelationshipEquipeFuncionario.FirstOrDefault(relacao => relacao.funcionarioId == relationshipEquipeFuncionarioDto.funcionarioId);
             {
-                if (funcionarioNaEquipe != null)
+                if (_service.CheckTeamEmployee(relationshipEquipeFuncionarioDto) != true)
                 {
                     return BadRequest("Funcionário já está em uma equipe");
                 }
@@ -44,10 +41,40 @@ namespace Solicitacao_de_Material.Controllers
                     funcionarioId = relationshipEquipeFuncionarioDto.funcionarioId,
                     dataEntrada = DateTime.Now
                 };
-                _context.RelationshipEquipeFuncionario.Add(relacao);
-                _context.SaveChanges();
+
                 return Ok();
             }
         }
+
+        [HttpGet]
+        public IActionResult GetRelationship()
+        {
+            if (_service.GetRelationship() == null || !_service.GetRelationship().Any())
+            {
+                return NotFound("Nenhum relacionamento localizado");
+            }
+            var relationship = _service.GetRelationship();
+            return Ok(relationship);
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetRelationshipId(int id)
+        {
+            if (_service.GetRelationshipById(id) == null || !_service.GetRelationshipById(id).Any())
+            {
+                return NotFound("Nenhum relacionamento localizado");
+            }
+            var relationship = _service.GetRelationship();
+            return Ok(relationship);
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteRelationship(int id)
+        {
+            if (!_service.DeleteRelationship(id))
+            {
+                return NotFound("Relacionamento não localizado");
+            }
+            return Ok("Relacionamento deletado com sucesso");
+        }
     }
+
 }

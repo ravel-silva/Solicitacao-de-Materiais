@@ -2,17 +2,19 @@
 using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
+using Solicitacao_de_Material.Services;
 
 namespace Solicitacao_de_Material.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class employeeController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
-        private EquipeContext _context;
-        public employeeController(EquipeContext context)
+        
+        private EmployeeService _service;
+        public EmployeeController(EmployeeService service)
         {
-            _context = context;
+            _service = service;
         }
         [HttpPost]
         public IActionResult CreateFuncionario([FromBody] CreateCadastroFuncionarioDto CadastroFuncionarioDto)
@@ -22,26 +24,38 @@ namespace Solicitacao_de_Material.Controllers
             {
                 return BadRequest("Dados invalidos ou incompletos");
             }
-            var novoFuncionario = new Funcionario
-            {
-                Nome = CadastroFuncionarioDto.Nome,
-                Matricula = CadastroFuncionarioDto.Matricula
-            };
-            _context.Funcionarios.Add(novoFuncionario);
-            _context.SaveChanges();
+            _service.CreateCadastroFuncionario(CadastroFuncionarioDto);
             return Ok();
         }
         [HttpGet]
         public IActionResult GetFuncionarios()
         {
-            var funcionarios = _context.Funcionarios.Select(funcionarios => new ReadCadastroFuncionarioDto
+            if (_service.GetCadastroFuncionario() == null || !_service.GetCadastroFuncionario().Any())
             {
-                Id = funcionarios.Id,
-                Nome = funcionarios.Nome,
-                Matricula = funcionarios.Matricula.ToString()
-            });
-            return Ok(funcionarios);
+                return NotFound("Nenhum funcionario localizado");
+            }
+            return Ok(_service.GetCadastroFuncionario());
 
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetFuncionarioById(int id)
+        {
+            if (_service.GetCadastroFuncionarioById(id) == null || !_service.GetCadastroFuncionarioById(id).Any())
+            {
+                return NotFound("Funcionario não localizado");
+            }
+            return Ok(_service.GetCadastroFuncionarioById(id));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteFuncionario(int id)
+        {
+            if (!_service.DeleteCadastroFuncionario(id))
+            {
+                return NotFound("Funcionario não localizado");
+            }
+            return Ok("Funcionario deletado com sucesso");
         }
     }
 }

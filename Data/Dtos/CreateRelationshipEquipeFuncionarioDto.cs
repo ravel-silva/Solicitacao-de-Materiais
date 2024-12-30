@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Solicitacao_de_Material.Data.Dtos
 {
-    public class RelationshipEquipeFuncionarioDto
+    public class CreateRelationshipEquipeFuncionarioDto
     {
         [Required]
         public int equipeId { get; set; }
