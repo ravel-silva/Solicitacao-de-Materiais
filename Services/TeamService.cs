@@ -6,14 +6,14 @@ namespace Solicitacao_de_Material.Services
 {
     public class TeamService
     {
-        private EquipeContext _context;
-        public TeamService(EquipeContext context)
+        private AppDbContext _context;
+        public TeamService(AppDbContext context)
         {
             _context = context;
         }
 
         //this method creates a new team
-        public void CreateEquipe(CreateCadastroEquipeDto cadastroEquipeDto)
+        public void CreateEquipe(CreateEquipeDto cadastroEquipeDto)
         {
             var novaEquipe = new Equipe
             {
@@ -25,9 +25,9 @@ namespace Solicitacao_de_Material.Services
         }
 
         // This method views the list of teams
-        public List<ReadCadastroEquipeDto> GetEquipe()
+        public List<ReadEquipeDto> GetEquipe()
         {
-            var equipes = _context.Equipes.Select(equipe => new ReadCadastroEquipeDto
+            var equipes = _context.Equipes.Select(equipe => new ReadEquipeDto
             {
                 Id = equipe.Id,
                 Prefixo = equipe.Prefixo
@@ -37,11 +37,11 @@ namespace Solicitacao_de_Material.Services
         }
 
         // This method views the team by ID
-        public List<ReadCadastroEquipeDto> GetEquipeId(int id)
+        public List<ReadEquipeDto> GetEquipeId(int id)
         {
             var equipe = _context.Equipes
                  .Where(e => e.Id == id) // Filtra pelo ID
-                 .Select(e => new ReadCadastroEquipeDto
+                 .Select(e => new ReadEquipeDto
                  {
                      Id = e.Id,
                      Prefixo = e.Prefixo

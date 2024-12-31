@@ -10,7 +10,7 @@ builder.Services.AddScoped<RelationShipEquipeFuncionarioService>();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("EquipeConnection");
-builder.Services.AddDbContext<EquipeContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -11,13 +11,13 @@ namespace Solicitacao_de_Material.Controllers
     public class TeamController : ControllerBase
     {
         private TeamService _cadastroEquipeService;
-        public TeamController(EquipeContext context, TeamService equipeService)
+        public TeamController(AppDbContext context, TeamService equipeService)
         {
             _cadastroEquipeService = equipeService;
         }
         // This method creates a team
         [HttpPost]
-        public IActionResult CreateTeam([FromBody] CreateCadastroEquipeDto CadastroEquipeDto)
+        public IActionResult CreateTeam([FromBody] CreateEquipeDto CadastroEquipeDto)
         {
             if (CadastroEquipeDto == null || string.IsNullOrWhiteSpace(CadastroEquipeDto.Prefixo))
             {

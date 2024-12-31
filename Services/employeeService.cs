@@ -6,13 +6,13 @@ namespace Solicitacao_de_Material.Services
 {
     public class EmployeeService
     {
-        private EquipeContext _context;
-        public EmployeeService(EquipeContext context)
+        private AppDbContext _context;
+        public EmployeeService(AppDbContext context)
         {
             _context = context;
         }
 
-        public void CreateCadastroFuncionario(CreateCadastroFuncionarioDto createCadastroFuncionarioDto)
+        public void CreateCadastroFuncionario(CreateFuncionarioDto createCadastroFuncionarioDto)
         {
             var funcionario = new Funcionario
             {
@@ -23,9 +23,9 @@ namespace Solicitacao_de_Material.Services
             _context.SaveChanges();
         }
         // get
-        public List<ReadCadastroFuncionarioDto> GetCadastroFuncionario()
+        public List<ReadFuncionarioDto> GetCadastroFuncionario()
         {
-            var funcionarios = _context.Funcionarios.Select(funcionario => new ReadCadastroFuncionarioDto
+            var funcionarios = _context.Funcionarios.Select(funcionario => new ReadFuncionarioDto
             {
                 Id = funcionario.Id,
                 Nome = funcionario.Nome,
@@ -34,9 +34,9 @@ namespace Solicitacao_de_Material.Services
             return funcionarios.ToList();
         }
 
-        public List<ReadCadastroFuncionarioDto> GetCadastroFuncionarioById(int id)
+        public List<ReadFuncionarioDto> GetCadastroFuncionarioById(int id)
         {
-            var funcionarios = _context.Funcionarios.Where(funcionarios => funcionarios.Id == id).Select(funcionarios => new ReadCadastroFuncionarioDto
+            var funcionarios = _context.Funcionarios.Where(funcionarios => funcionarios.Id == id).Select(funcionarios => new ReadFuncionarioDto
             {
                 Id = funcionarios.Id,
                 Nome = funcionarios.Nome,

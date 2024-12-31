@@ -6,8 +6,8 @@ namespace Solicitacao_de_Material.Services
 {
     public class RelationShipEquipeFuncionarioService
     {
-        private EquipeContext _context;
-        public RelationShipEquipeFuncionarioService(EquipeContext context)
+        private AppDbContext _context;
+        public RelationShipEquipeFuncionarioService(AppDbContext context)
         {
             _context = context;
         }

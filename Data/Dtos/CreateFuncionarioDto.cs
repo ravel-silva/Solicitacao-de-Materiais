@@ -2,13 +2,13 @@
 
 namespace Solicitacao_de_Material.Data.Dtos
 {
-    public class ReadCadastroFuncionarioDto
+    public class CreateFuncionarioDto
     {
-        [Required]
-        public int Id { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
-        public string Matricula { get; set; }
+        public int Matricula { get; set; }
+        public int EquipeId { get; set; }
+
     }
 }

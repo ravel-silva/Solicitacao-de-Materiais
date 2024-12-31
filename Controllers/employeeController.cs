@@ -17,7 +17,7 @@ namespace Solicitacao_de_Material.Controllers
             _service = service;
         }
         [HttpPost]
-        public IActionResult CreateFuncionario([FromBody] CreateCadastroFuncionarioDto CadastroFuncionarioDto)
+        public IActionResult CreateFuncionario([FromBody] CreateFuncionarioDto CadastroFuncionarioDto)
         {
             if (CadastroFuncionarioDto == null || string.IsNullOrWhiteSpace(CadastroFuncionarioDto.Matricula.ToString())
                 || string.IsNullOrWhiteSpace(CadastroFuncionarioDto.Nome))
