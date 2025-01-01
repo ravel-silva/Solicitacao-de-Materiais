@@ -27,7 +27,7 @@ namespace Solicitacao_de_Material.Services
         }
 
         // Get all Materials from the database
-        public List<ReadMaterialDto> GetMaterials()
+        public IEnumerable<ReadMaterialDto> GetMaterials()
         {
             var materiais = _context.Materiais.Select(material => new ReadMaterialDto
             {
@@ -41,7 +41,7 @@ namespace Solicitacao_de_Material.Services
         }
 
         // Get a Material by Id from the database
-        public List<ReadMaterialDto> GetMaterialById(int id)
+        public IEnumerable<ReadMaterialDto> GetMaterialById(int id)
         {
             var materiais = _context.Materiais.Where(material => material.Id == id).Select(material => new ReadMaterialDto
             {
@@ -55,14 +55,25 @@ namespace Solicitacao_de_Material.Services
         }
 
         // Update a Material in the database
-        public bool UpdateMaterial(int id)
+        public bool UpdateMaterial(UpdateMaterialDto updateMaterialDto)
         {
-            var material = _context.Materiais.FirstOrDefault(material => material.Id == id);
+            var material = _context.Materiais.FirstOrDefault(material => material.Id == updateMaterialDto.Id);
             if (material == null)
             {
                 return false;
             }
-            _context.Materiais.Update(material);
+            if(!string.IsNullOrEmpty(updateMaterialDto.Nome))
+                material.Nome = updateMaterialDto.Nome;
+            if(!string.IsNullOrEmpty(string.Empty + updateMaterialDto.Codigo))
+                material.Codigo = updateMaterialDto.Codigo;
+            if (!string.IsNullOrEmpty(updateMaterialDto.Descricao))
+                material.Descricao = updateMaterialDto.Descricao;
+            if (!string.IsNullOrEmpty(string.Empty + updateMaterialDto.Quantidade))
+                material.Unidade = updateMaterialDto.Unidade;
+            if (!string.IsNullOrEmpty(updateMaterialDto.Status))
+                material.Status = updateMaterialDto.Status;
+
+
             _context.SaveChanges();
             return true;
         }

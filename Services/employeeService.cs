@@ -23,7 +23,7 @@ namespace Solicitacao_de_Material.Services
             _context.SaveChanges();
         }
         // get
-        public List<ReadFuncionarioDto> GetCadastroFuncionario()
+        public IEnumerable<ReadFuncionarioDto> GetCadastroFuncionario()
         {
             var funcionarios = _context.Funcionarios.Select(funcionario => new ReadFuncionarioDto
             {
@@ -34,7 +34,7 @@ namespace Solicitacao_de_Material.Services
             return funcionarios.ToList();
         }
 
-        public List<ReadFuncionarioDto> GetCadastroFuncionarioById(int id)
+        public IEnumerable<ReadFuncionarioDto> GetCadastroFuncionarioById(int id)
         {
             var funcionarios = _context.Funcionarios.Where(funcionarios => funcionarios.Id == id).Select(funcionarios => new ReadFuncionarioDto
             {

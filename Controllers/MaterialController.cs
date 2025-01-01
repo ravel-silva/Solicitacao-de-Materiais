@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Solicitacao_de_Material.Data.Dtos;
+using Solicitacao_de_Material.Model;
 using Solicitacao_de_Material.Services;
 
 namespace Solicitacao_de_Material.Controllers
@@ -50,9 +51,13 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateMaterial(int id)
+        public IActionResult UpdateMaterial(int id, [FromBody] UpdateMaterialDto updateMaterialDto)
         {
-            if (!_service.UpdateMaterial(id))
+            if(id != updateMaterialDto.Id)
+            {
+                return BadRequest("Id inválido");
+            }
+            if (!_service.UpdateMaterial(updateMaterialDto))
             {
                 return NotFound("Material não localizado");
             }

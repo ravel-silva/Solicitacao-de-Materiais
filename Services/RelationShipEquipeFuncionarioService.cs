@@ -47,7 +47,7 @@ namespace Solicitacao_de_Material.Services
             _context.RelationshipEquipeFuncionario.Add(relacao);
             _context.SaveChanges();
         }
-        public List<ReadRelationshipEquipeFuncionarioDto> GetRelationship()
+        public IEnumerable<ReadRelationshipEquipeFuncionarioDto> GetRelationship()
         {
             var relacao = _context.RelationshipEquipeFuncionario.Select(relacao => new ReadRelationshipEquipeFuncionarioDto
             {
@@ -58,7 +58,7 @@ namespace Solicitacao_de_Material.Services
             });
             return relacao.ToList();
         }
-        public List<ReadRelationshipEquipeFuncionarioDto> GetRelationshipById(int id)
+        public IEnumerable<ReadRelationshipEquipeFuncionarioDto> GetRelationshipById(int id)
         {
             var relacao = _context.RelationshipEquipeFuncionario.Where(relacao => relacao.equipeId == id).Select(relacao => new ReadRelationshipEquipeFuncionarioDto
             {

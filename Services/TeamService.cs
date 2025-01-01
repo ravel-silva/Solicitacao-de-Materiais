@@ -25,7 +25,7 @@ namespace Solicitacao_de_Material.Services
         }
 
         // This method views the list of teams
-        public List<ReadEquipeDto> GetEquipe()
+        public IEnumerable<ReadEquipeDto> GetEquipe()
         {
             var equipes = _context.Equipes.Select(equipe => new ReadEquipeDto
             {
@@ -37,7 +37,7 @@ namespace Solicitacao_de_Material.Services
         }
 
         // This method views the team by ID
-        public List<ReadEquipeDto> GetEquipeId(int id)
+        public IEnumerable<ReadEquipeDto> GetEquipeId(int id)
         {
             var equipe = _context.Equipes
                  .Where(e => e.Id == id) // Filtra pelo ID
