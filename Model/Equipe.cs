@@ -11,5 +11,6 @@ namespace Solicitacao_de_Material.Model
         public string Prefixo { get; set; }
 
         public virtual ICollection<EquipeFuncionario> EquipesFuncionarios { get; set; }
+        public virtual ICollection<RequisicaoDeMaterial> RequisicoesDeMaterial { get; set; }
     }
 }

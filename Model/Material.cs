@@ -19,5 +19,7 @@ namespace Solicitacao_de_Material.Model
         public string Unidade { get; set; }
         [Required]
         public string Status { get; set; }
+
+        public virtual ICollection<RequisicaoDeMaterial> RequisicoesDeMaterial { get; set; }
     }
 }
