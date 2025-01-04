@@ -1,5 +1,12 @@
 # Solicitação de Material 📋
 
+## 🚧 Status do Projeto
+
+O projeto está em desenvolvimento contínuo.  
+Atualmente, estou focado em implementar funcionalidades básicas e melhorar a escalabilidade.  
+
+Se você encontrar algum problema ou quiser sugerir melhorias, sinta-se à vontade para abrir uma issue ou contribuir diretamente!  
+
 ## 📖 Sobre o projeto
 O projeto **Solicitação de Material** é uma API desenvolvida em **ASP.NET Core** que gerencia processos relacionados a funcionários,
 equipes e materiais em uma organização. Ele permite a criação, consulta, atualização e exclusão de registros, 
