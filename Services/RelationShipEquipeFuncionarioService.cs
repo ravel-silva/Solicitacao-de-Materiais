@@ -1,4 +1,5 @@
-﻿using Solicitacao_de_Material.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
 
@@ -37,7 +38,7 @@ namespace Solicitacao_de_Material.Services
 
         public void CreateRelationship(CreateRelationshipEquipeFuncionarioDto relationshipEquipeFuncionarioDto)
         {
-            
+
             var relacao = new EquipeFuncionario
             {
                 equipeId = relationshipEquipeFuncionarioDto.equipeId,
@@ -49,13 +50,18 @@ namespace Solicitacao_de_Material.Services
         }
         public IEnumerable<ReadRelationshipEquipeFuncionarioDto> GetRelationship()
         {
-            var relacao = _context.RelationshipEquipeFuncionario.Select(relacao => new ReadRelationshipEquipeFuncionarioDto
-            {
-                Id = relacao.Id,
-                funcionarioId = relacao.funcionarioId,
-                equipeId = relacao.equipeId,
-                dataEntrada = relacao.dataEntrada
-            });
+            var relacao = _context.RelationshipEquipeFuncionario
+                .Include(relacao => relacao.equipe)
+                .Include(relacao => relacao.funcionario)
+                .Select(relacao => new ReadRelationshipEquipeFuncionarioDto
+                {
+                    Id = relacao.Id,
+                    equipeId = relacao.equipeId,
+                    equipePrefixo = relacao.equipe.Prefixo,
+                    funcionarioId = relacao.funcionarioId,
+                    funcionarioNome = relacao.funcionario.Nome,
+                    dataEntrada = relacao.dataEntrada
+                });
             return relacao.ToList();
         }
         public IEnumerable<ReadRelationshipEquipeFuncionarioDto> GetRelationshipById(int id)

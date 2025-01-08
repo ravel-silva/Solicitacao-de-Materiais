@@ -1,4 +1,5 @@
-﻿using Solicitacao_de_Material.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
 
@@ -44,6 +45,7 @@ namespace Solicitacao_de_Material.Services
             });
             return funcionarios.ToList();
         }
+        
 
         public bool DeleteCadastroFuncionario(int id)
         {

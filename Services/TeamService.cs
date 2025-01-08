@@ -1,4 +1,5 @@
-﻿using Solicitacao_de_Material.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
 using Solicitacao_de_Material.Model;
 
@@ -15,6 +16,7 @@ namespace Solicitacao_de_Material.Services
         //this method creates a new team
         public void CreateEquipe(CreateEquipeDto cadastroEquipeDto)
         {
+            
             var novaEquipe = new Equipe
             {
                 Prefixo = cadastroEquipeDto.Prefixo,
@@ -51,6 +53,7 @@ namespace Solicitacao_de_Material.Services
             return equipe;
             
         }
+       
         // this method deletes a team
         public bool DeleleteEquipe(int id)
         {
@@ -63,5 +66,12 @@ namespace Solicitacao_de_Material.Services
             _context.SaveChanges();
             return true;
         }
-    }    
+
+
+        //verificar se ja existe equipe cadastrada
+        public bool VerificarEquipe(string prefixo)
+        {
+            return _context.Equipes.Any(equipe => equipe.Prefixo == prefixo);
+        }
+    }
 }

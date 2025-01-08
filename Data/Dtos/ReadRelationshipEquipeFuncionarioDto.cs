@@ -9,11 +9,11 @@ namespace Solicitacao_de_Material.Data.Dtos
         [Required]
         public int equipeId { get; set; }
 
-        public Equipe equipe { get; set; }
+        public string equipePrefixo { get; set; }
         [Required]
         public int funcionarioId { get; set; }
 
-        public Funcionario funcionario { get; set; }
+        public string funcionarioNome { get; set; }
 
         public DateTime dataEntrada { get; set; } = DateTime.Now;
     }
