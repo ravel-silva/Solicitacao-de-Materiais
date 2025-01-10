@@ -7,10 +7,12 @@ namespace Solicitacao_de_Material.Model
         [Key]
         [Required]
         public int Id { get; set; }
-        [Required]
+        [Required (ErrorMessage ="Informe o nome do funcionario")]
         public string Nome { get; set; }
-        [Required]
-        public int Matricula { get; set; }
+
+        [Required(ErrorMessage = "Informe a matricula do funcionario")]
+        [RegularExpression (@"/^\d{3,10}$/", ErrorMessage = "Matricula precisa ter entre 3 e 10 dígitos")]
+        public string Matricula { get; set; }
 
         public virtual ICollection<EquipeFuncionario> EquipesFuncionarios { get; set; }
     }

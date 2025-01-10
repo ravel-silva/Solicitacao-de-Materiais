@@ -19,11 +19,11 @@ namespace Solicitacao_de_Material.Controllers
         [HttpPost]
         public IActionResult CreateFuncionario([FromBody] CreateFuncionarioDto CadastroFuncionarioDto)
         {
-            if (CadastroFuncionarioDto == null || string.IsNullOrWhiteSpace(CadastroFuncionarioDto.Matricula.ToString())
-                || string.IsNullOrWhiteSpace(CadastroFuncionarioDto.Nome))
+            if(!ModelState.IsValid)
             {
-                return BadRequest("Dados invalidos ou incompletos");
+                return BadRequest(ModelState);
             }
+
             _service.CreateCadastroFuncionario(CadastroFuncionarioDto);
             return Ok();
         }

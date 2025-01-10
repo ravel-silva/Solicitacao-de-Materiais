@@ -6,9 +6,9 @@ namespace Solicitacao_de_Material.Data.Dtos
     {
         [Required]
         public int Id { get; set; }
-        [Required]
+        [Required (ErrorMessage = "Informe o nome do funcionario")]
         public string Nome { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Informe a matricula do funcionario")]
         public string Matricula { get; set; }
     }
 }

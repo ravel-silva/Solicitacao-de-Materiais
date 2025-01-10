@@ -18,7 +18,7 @@ namespace Solicitacao_de_Material.Services
             var funcionario = new Funcionario
             {
                 Nome = createCadastroFuncionarioDto.Nome,
-                Matricula = createCadastroFuncionarioDto.Matricula
+                Matricula = createCadastroFuncionarioDto.Matricula.ToString()
             };
             _context.Funcionarios.Add(funcionario);
             _context.SaveChanges();

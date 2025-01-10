@@ -19,13 +19,11 @@ namespace Solicitacao_de_Material.Controllers
         [HttpPost]
         public IActionResult CreateMaterial([FromBody] CreateMaterialDto materialDto)
         {
-            if (materialDto == null || string.IsNullOrWhiteSpace(materialDto.Nome) 
-                || string.IsNullOrWhiteSpace(materialDto.Descricao) 
-                || string.IsNullOrWhiteSpace(materialDto.Unidade) 
-                || string.IsNullOrWhiteSpace(materialDto.Status))
+            if(!ModelState.IsValid)
             {
-                return BadRequest("Dados inválidos ou incompletos");
+                return BadRequest(ModelState);
             }
+          
             _service.CreateMaterial(materialDto);
             return Ok();
         }
