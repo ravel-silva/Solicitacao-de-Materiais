@@ -17,6 +17,7 @@ namespace Solicitacao_de_Material.Services
         {
             var material = new Material
             {
+                Codigo = MaterialDto.Codigo,
                 Nome = MaterialDto.Nome,
                 Descricao = MaterialDto.Descricao,
                 Unidade = MaterialDto.Unidade,

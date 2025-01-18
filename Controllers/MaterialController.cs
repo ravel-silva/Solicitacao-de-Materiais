@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging.Abstractions;
 using Solicitacao_de_Material.Data.Dtos;
-using Solicitacao_de_Material.Model;
 using Solicitacao_de_Material.Services;
 
 namespace Solicitacao_de_Material.Controllers

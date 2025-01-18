@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<TeamService>();
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<RelationShipEquipeFuncionarioService>();
+builder.Services.AddScoped<MaterialService>();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("EquipeConnection");
