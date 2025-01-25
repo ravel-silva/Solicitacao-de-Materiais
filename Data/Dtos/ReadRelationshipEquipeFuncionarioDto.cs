@@ -11,10 +11,12 @@ namespace Solicitacao_de_Material.Data.Dtos
 
         public string equipePrefixo { get; set; }
         [Required]
-        public int funcionarioId { get; set; }
+        //public int funcionarioId { get; set; }
 
-        public string funcionarioNome { get; set; }
+        //public string funcionarioNome { get; set; }
 
+        public virtual ICollection<FuncionariosInfo> funcionarios { get; set; }
         public DateTime dataEntrada { get; set; } = DateTime.Now;
+
     }
 }

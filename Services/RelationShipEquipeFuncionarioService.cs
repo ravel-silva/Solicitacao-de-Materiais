@@ -53,28 +53,42 @@ namespace Solicitacao_de_Material.Services
             var relacao = _context.RelationshipEquipeFuncionario
                 .Include(relacao => relacao.equipe)
                 .Include(relacao => relacao.funcionario)
-                .Select(relacao => new ReadRelationshipEquipeFuncionarioDto
+                .GroupBy(relacao => new { relacao.equipeId, relacao.equipe.Prefixo })
+                .Select(grupo => new ReadRelationshipEquipeFuncionarioDto
                 {
-                    Id = relacao.Id,
-                    equipeId = relacao.equipeId,
-                    equipePrefixo = relacao.equipe.Prefixo,
-                    funcionarioId = relacao.funcionarioId,
-                    funcionarioNome = relacao.funcionario.Nome,
-                    dataEntrada = relacao.dataEntrada
+                    Id = grupo.First().Id,
+                    equipeId = grupo.Key.equipeId,
+                    equipePrefixo = grupo.Key.Prefixo,
+                    funcionarios = grupo.Select(relacao => new FuncionariosInfo
+                    {
+                        Id = relacao.funcionario.Id,
+                        NomeFuncionario = relacao.funcionario.Nome,
+                        MatriculaFuncionario = relacao.funcionario.Matricula
+                    }).ToList(),
+                    dataEntrada = grupo.First().dataEntrada
                 });
             return relacao.ToList();
         }
         public IEnumerable<ReadRelationshipEquipeFuncionarioDto> GetRelationshipById(int id)
         {
-            var relacao = _context.RelationshipEquipeFuncionario.Where(relacao => relacao.equipeId == id).Select(relacao => new ReadRelationshipEquipeFuncionarioDto
-            {
-                Id = relacao.Id,
-                funcionarioId = relacao.funcionarioId,
-                equipeId = relacao.equipeId,
-                dataEntrada = relacao.dataEntrada
-
-
-            });
+            var relacao = _context.RelationshipEquipeFuncionario
+                .Include(relacao => relacao.equipe)
+                .Include(relacao => relacao.funcionario)
+                .Where(relacao => relacao.equipeId == id)
+                .GroupBy(relacao => new { relacao.equipeId, relacao.equipe.Prefixo })
+                .Select(grupo => new ReadRelationshipEquipeFuncionarioDto
+                {
+                    Id = grupo.First().Id,
+                    equipeId = grupo.Key.equipeId,
+                    equipePrefixo = grupo.Key.Prefixo,
+                    funcionarios = grupo.Select(relacao => new FuncionariosInfo
+                    {
+                        Id = relacao.funcionario.Id,
+                        NomeFuncionario = relacao.funcionario.Nome,
+                        MatriculaFuncionario = relacao.funcionario.Matricula
+                    }).ToList(),
+                    dataEntrada = grupo.First().dataEntrada
+                });
             return relacao.ToList();
         }
         public bool DeleteRelationship(int id)

@@ -16,5 +16,7 @@ namespace Solicitacao_de_Material.Model
         public DateTime DataCriacao { get; set; } = DateTime.Now;
 
         public virtual ICollection<EquipeFuncionario> EquipesFuncionarios { get; set; }
+
+
     }
 }
