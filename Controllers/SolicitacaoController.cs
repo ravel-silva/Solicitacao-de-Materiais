@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
-using Solicitacao_de_Material.Model;
+using Solicitacao_de_Material.Services;
 
 namespace Solicitacao_de_Material.Controllers
 {
@@ -9,29 +8,66 @@ namespace Solicitacao_de_Material.Controllers
     [Route("[controller]")]
     public class SolicitacaoController : ControllerBase
     {
-        private AppDbContext _context;
-        public SolicitacaoController(AppDbContext context)
+        private RequisicaoDeMaterialService _service;
+        
+        public SolicitacaoController(RequisicaoDeMaterialService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpPost]
-        public IActionResult CrateSolicitacao([FromBody] CreateRequisicaoDeMaterialDto requisicao)
+        public IActionResult CreateSolicitacao([FromBody] CreateRequisicaoDeMaterialDto requisicao)
         {
-            if (requisicao == null || requisicao.Materiais == null || !requisicao.Materiais.Any()) { return BadRequest("A lista de materiais não pode estar vazia."); }
-            var novaRequisicao = new RequisicaoDeMaterial
+
+            if (requisicao == null || requisicao.Materiais == null || !requisicao.Materiais.Any())
             {
-                EquipeId = requisicao.EquipeId,
-                Materiais = requisicao.Materiais.Select(material => new ListMaterialDto
-                {
-                    Nome = material.Nome,
-                    Quantidade = material.Quantidade
-                }).ToList(),
-                Status = requisicao.Status,
-                DateTime = DateTime.Now
-            };
-            
-            return Ok(novaRequisicao);
+                return BadRequest("A lista de materiais não pode estar vazia.");
+            }
+           
+            _service.CreateRequisicaoDeMaterial(requisicao);
+
+            return Ok();
+        }
+        [HttpGet]
+        public IActionResult Requisicoes()
+        {
+            if (_service.ViewRequisicoes() == null || !_service.ViewRequisicoes().Any())
+            {
+                return NotFound("Não há solicitações cadastradas no sistema.");
+            }
+            var solicitacoes = _service.ViewRequisicoes();
+
+            return Ok(solicitacoes);
+        }
+        [HttpGet("{id}")]
+        public IActionResult RequisicoesId(int id)
+        {
+            if (_service.ViewRequisicoesId(id) == null || !_service.ViewRequisicoesId(id).Any())
+            {
+                return NotFound("Não há solicitações cadastradas para a equipe informada.");
+            }
+            var solicitacoes = _service.ViewRequisicoesId(id);
+            return Ok(solicitacoes);
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSolicitacao(int id)
+        {
+            if(_service.DeleteRequisicao(id) == false)
+            {
+                return NotFound("Solicitação não encontrada.");
+            }
+            _service.DeleteRequisicao(id);
+            return Ok();
+        }
+        [HttpPut ("{id}")]
+        public IActionResult UpdateRequisicoes(int id, [FromBody] UpdataRequisicaoDeMaterialDto requisicao)
+        {
+            if (requisicao == null)
+            {
+                return BadRequest("Requisição não pode ser nula.");
+            }
+            _service.UpdateRequisicao(id, requisicao);
+            return Ok();
         }
     }
 }

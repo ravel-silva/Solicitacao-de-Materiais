@@ -10,5 +10,6 @@ namespace Solicitacao_de_Material.Data.Dtos
         [MinLength(6, ErrorMessage = "O Prefixo deve ter no mínimo 6 caracteres")]
         [RegularExpression(@"^\S*$", ErrorMessage = "O Prefixo não pode conter espaços em branco.")]
         public string Prefixo { get; set; }
+        public DateTime DataCriacao { get; set; } = DateTime.Now;
     }
 }

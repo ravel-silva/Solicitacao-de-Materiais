@@ -8,10 +8,11 @@ namespace Solicitacao_de_Material.Model
         public int EquipeId { get; set; }
         public Equipe Equipe { get; set; }
 
-        public ICollection<ListMaterialDto> Materiais { get; set; }
+        public ICollection<ListMaterial> Materiais { get; set; }
         public string Status { get; set; }  // Status da requisição (ex: Ativo, Cancelado, Concluído)
-        public DateTime DateTime { get; set; }  // Data e hora em que a requisição foi feita
+        public DateTime DateTime { get; set; } = DateTime.Now; // Data e hora em que a requisição foi feita
 
-       
+
+
     }
 }

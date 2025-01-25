@@ -12,8 +12,10 @@ namespace Solicitacao_de_Material.Model
         [MinLength(6, ErrorMessage = "O Prefixo deve ter no mínimo 6 caracteres")]
         [RegularExpression(@"^\S*$", ErrorMessage = "O Prefixo não pode conter espaços em branco.")]
         public string Prefixo { get; set; }
+        public DateTime DataCriacao { get; set; } = DateTime.Now;   
 
         public virtual ICollection<EquipeFuncionario> EquipesFuncionarios { get; set; }
         public virtual ICollection<RequisicaoDeMaterial> RequisicoesDeMaterial { get; set; }
+
     }
 }

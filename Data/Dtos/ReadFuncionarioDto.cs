@@ -10,5 +10,6 @@ namespace Solicitacao_de_Material.Data.Dtos
         public string Nome { get; set; }
         [Required(ErrorMessage = "Informe a matricula do funcionario")]
         public string Matricula { get; set; }
+        public DateTime DataCriacao { get; set; } = DateTime.Now;
     }
 }

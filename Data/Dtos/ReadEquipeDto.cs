@@ -8,5 +8,6 @@ namespace Solicitacao_de_Material.Data.Dtos
         public int Id { get; set; }
         [Required]
         public string Prefixo { get; set; }
+        public DateTime DataCriacao { get; set; } = DateTime.Now;
     }
 }

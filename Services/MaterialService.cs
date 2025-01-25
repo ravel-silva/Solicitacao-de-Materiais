@@ -21,7 +21,8 @@ namespace Solicitacao_de_Material.Services
                 Nome = MaterialDto.Nome,
                 Descricao = MaterialDto.Descricao,
                 Unidade = MaterialDto.Unidade,
-                Status = MaterialDto.Status
+                Status = MaterialDto.Status,
+                DataCriacao = MaterialDto.DataCriacao
             };
             _context.Materiais.Add(material);
             _context.SaveChanges();
@@ -33,10 +34,12 @@ namespace Solicitacao_de_Material.Services
             var materiais = _context.Materiais.Select(material => new ReadMaterialDto
             {
                 Id = material.Id,
+                Codigo = material.Codigo,
                 Nome = material.Nome,
                 Descricao = material.Descricao,
                 Unidade = material.Unidade,
-                Status = material.Status
+                Status = material.Status,
+                DataCriacao = material.DataCriacao
             });
             return materiais.ToList();
         }
@@ -50,7 +53,8 @@ namespace Solicitacao_de_Material.Services
                 Nome = material.Nome,
                 Descricao = material.Descricao,
                 Unidade = material.Unidade,
-                Status = material.Status
+                Status = material.Status,
+                DataCriacao = material.DataCriacao
             });
             return materiais.ToList();
         }
@@ -73,6 +77,8 @@ namespace Solicitacao_de_Material.Services
                 material.Unidade = updateMaterialDto.Unidade;
             if (!string.IsNullOrEmpty(updateMaterialDto.Status))
                 material.Status = updateMaterialDto.Status;
+            if (!string.IsNullOrEmpty(string.Empty + updateMaterialDto.DataModificacao))
+                material.DataCriacao = updateMaterialDto.DataModificacao;
 
 
             _context.SaveChanges();

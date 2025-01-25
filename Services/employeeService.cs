@@ -18,7 +18,8 @@ namespace Solicitacao_de_Material.Services
             var funcionario = new Funcionario
             {
                 Nome = createCadastroFuncionarioDto.Nome,
-                Matricula = createCadastroFuncionarioDto.Matricula.ToString()
+                Matricula = createCadastroFuncionarioDto.Matricula.ToString(),
+                DataCriacao = createCadastroFuncionarioDto.DataCriacao
             };
             _context.Funcionarios.Add(funcionario);
             _context.SaveChanges();
@@ -30,7 +31,8 @@ namespace Solicitacao_de_Material.Services
             {
                 Id = funcionario.Id,
                 Nome = funcionario.Nome,
-                Matricula = funcionario.Matricula.ToString()
+                Matricula = funcionario.Matricula.ToString(),
+                DataCriacao = funcionario.DataCriacao
             });
             return funcionarios.ToList();
         }
@@ -41,7 +43,8 @@ namespace Solicitacao_de_Material.Services
             {
                 Id = funcionarios.Id,
                 Nome = funcionarios.Nome,
-                Matricula = funcionarios.Matricula.ToString()
+                Matricula = funcionarios.Matricula.ToString(),
+                DataCriacao = funcionarios.DataCriacao
             });
             return funcionarios.ToList();
         }

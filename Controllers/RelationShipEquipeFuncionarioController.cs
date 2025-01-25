@@ -29,21 +29,16 @@ namespace Solicitacao_de_Material.Controllers
                 return BadRequest("Equipe ou Funcionário não localizado");
             }
             // Verificar se um funcionário já está em uma equipe
-            {
-                if (_service.CheckTeamEmployee(relationshipEquipeFuncionarioDto) != true)
-                {
-                    return BadRequest("Funcionário já está em uma equipe");
-                }
-                // Criar o relacionamento
-                var relacao = new EquipeFuncionario
-                {
-                    equipeId = relationshipEquipeFuncionarioDto.equipeId,
-                    funcionarioId = relationshipEquipeFuncionarioDto.funcionarioId,
-                    dataEntrada = DateTime.Now
-                };
 
-                return Ok();
+            if (_service.CheckTeamEmployee(relationshipEquipeFuncionarioDto) != true)
+            {
+                return BadRequest("Funcionário já está em uma equipe");
             }
+            // Criar o relacionamento
+            _service.CreateRelationship(relationshipEquipeFuncionarioDto);
+
+            return Ok();
+
         }
 
         [HttpGet]

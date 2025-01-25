@@ -20,6 +20,7 @@ namespace Solicitacao_de_Material.Services
             var novaEquipe = new Equipe
             {
                 Prefixo = cadastroEquipeDto.Prefixo,
+                DataCriacao = cadastroEquipeDto.DataCriacao
             };
             _context.Equipes.Add(novaEquipe);
             _context.SaveChanges();
@@ -32,7 +33,8 @@ namespace Solicitacao_de_Material.Services
             var equipes = _context.Equipes.Select(equipe => new ReadEquipeDto
             {
                 Id = equipe.Id,
-                Prefixo = equipe.Prefixo
+                Prefixo = equipe.Prefixo,
+                DataCriacao = equipe.DataCriacao
             });
 
             return equipes.ToList();
@@ -46,7 +48,8 @@ namespace Solicitacao_de_Material.Services
                  .Select(e => new ReadEquipeDto
                  {
                      Id = e.Id,
-                     Prefixo = e.Prefixo
+                     Prefixo = e.Prefixo,
+                     DataCriacao = e.DataCriacao
                  })
                  .ToList(); // Retorna como lista
 

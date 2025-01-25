@@ -8,12 +8,21 @@ builder.Services.AddScoped<TeamService>();
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<RelationShipEquipeFuncionarioService>();
 builder.Services.AddScoped<MaterialService>();
+builder.Services.AddScoped<RequisicaoDeMaterialService>();
+
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+});
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("EquipeConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,3 +43,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

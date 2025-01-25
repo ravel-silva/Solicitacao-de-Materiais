@@ -21,5 +21,6 @@ namespace Solicitacao_de_Material.Data.Dtos
         public string Unidade { get; set; }
         [Required]
         public string Status { get; set; }
+        public DateTime DataModificacao { get; set; } = DateTime.Now;
     }
 }

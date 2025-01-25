@@ -19,6 +19,9 @@ namespace Solicitacao_de_Material.Model
         public string Unidade { get; set; }
         [Required]
         public string Status { get; set; }
+        public DateTime DataCriacao { get; set; } = DateTime.Now;
+
+        public ICollection<ListMaterial> ListMateriais { get; set; }  
 
     }
 }
