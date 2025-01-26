@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Solicitacao_de_Material.Data;
 using Solicitacao_de_Material.Data.Dtos;
+using Solicitacao_de_Material.Model;
 using Solicitacao_de_Material.Services;
 
 namespace Solicitacao_de_Material.Controllers
@@ -45,9 +46,9 @@ namespace Solicitacao_de_Material.Controllers
 
         // This method returns the list of teams
         [HttpGet]
-        public IActionResult GetTeams()
+        public IActionResult GetTeams(PaginationParameters parameters)
         {
-            var equipes = _TeamService.GetEquipe();
+            var equipes = _TeamService.GetEquipe(parameters);
             if (equipes == null || !equipes.Any())
             {
                 return NotFound("Não há equipes cadastradas no sistema.");

@@ -48,7 +48,7 @@ namespace Solicitacao_de_Material.Services
             _context.RelationshipEquipeFuncionario.Add(relacao);
             _context.SaveChanges();
         }
-        public IEnumerable<ReadRelationshipEquipeFuncionarioDto> GetRelationship()
+        public IEnumerable<ReadRelationshipEquipeFuncionarioDto> GetRelationship(PaginationParameters parameters)
         {
             var relacao = _context.RelationshipEquipeFuncionario
                 .Include(relacao => relacao.equipe)
@@ -66,7 +66,9 @@ namespace Solicitacao_de_Material.Services
                         MatriculaFuncionario = relacao.funcionario.Matricula
                     }).ToList(),
                     dataEntrada = grupo.First().dataEntrada
-                });
+                }).Skip((parameters.PageNumber - 1)
+            * parameters.PageSize)
+            .Take(parameters.PageSize);
             return relacao.ToList();
         }
         public IEnumerable<ReadRelationshipEquipeFuncionarioDto> GetRelationshipById(int id)

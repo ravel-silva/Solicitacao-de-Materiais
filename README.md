@@ -56,7 +56,7 @@ além de estabelecer relacionamentos entre diferentes entidades, como equipes e 
 ## 🔧 Melhorias Futuras
 
 - [ ] Adicionar autenticação e autorização.
-- [ ] Implementar paginação nos endpoints de listagem.
+- [x] Implementar paginação nos endpoints de listagem.
 - [ ] Criar testes unitários para aumentar a confiabilidade do sistema.
 - [ ] Melhorar o gerenciamento de logs e erros.
 

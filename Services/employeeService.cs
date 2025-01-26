@@ -25,7 +25,7 @@ namespace Solicitacao_de_Material.Services
             _context.SaveChanges();
         }
         // get
-        public IEnumerable<ReadFuncionarioDto> GetCadastroFuncionario()
+        public IEnumerable<ReadFuncionarioDto> GetCadastroFuncionario(PaginationParameters parameters)
         {
             var funcionarios = _context.Funcionarios.Select(funcionario => new ReadFuncionarioDto
             {
@@ -33,7 +33,9 @@ namespace Solicitacao_de_Material.Services
                 Nome = funcionario.Nome,
                 Matricula = funcionario.Matricula.ToString(),
                 DataCriacao = funcionario.DataCriacao
-            });
+            }).Skip((parameters.PageNumber - 1)
+            * parameters.PageSize)
+            .Take(parameters.PageSize);
             return funcionarios.ToList();
         }
 

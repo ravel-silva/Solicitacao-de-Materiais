@@ -42,13 +42,13 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetRelationship()
+        public IActionResult GetRelationship(PaginationParameters parameters)
         {
-            if (_service.GetRelationship() == null || !_service.GetRelationship().Any())
+            if (_service.GetRelationship(parameters) == null || !_service.GetRelationship(parameters).Any())
             {
                 return NotFound("Nenhum relacionamento localizado");
             }
-            var relationship = _service.GetRelationship();
+            var relationship = _service.GetRelationship(parameters);
             return Ok(relationship);
         }
         [HttpGet("{id}")]
@@ -58,7 +58,7 @@ namespace Solicitacao_de_Material.Controllers
             {
                 return NotFound("Nenhum relacionamento localizado");
             }
-            var relationship = _service.GetRelationship();
+            var relationship = _service.GetRelationshipById(id);
             return Ok(relationship);
         }
         [HttpDelete("{id}")]

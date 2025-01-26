@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Solicitacao_de_Material.Data.Dtos;
+using Solicitacao_de_Material.Model;
 using Solicitacao_de_Material.Services;
 
 namespace Solicitacao_de_Material.Controllers
@@ -27,13 +28,13 @@ namespace Solicitacao_de_Material.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetMaterials()
+        public IActionResult GetMaterials(PaginationParameters parameters)
         {
-            if (_service.GetMaterials() == null || !_service.GetMaterials().Any())
+            if (_service.GetMaterials(parameters) == null || !_service.GetMaterials(parameters).Any())
             {
                 return NotFound("Nenhum material localizado");
             }
-            return Ok(_service.GetMaterials());
+            return Ok(_service.GetMaterials(parameters));
         }
 
         [HttpGet("{id}")]

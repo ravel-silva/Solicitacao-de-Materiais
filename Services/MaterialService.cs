@@ -29,7 +29,7 @@ namespace Solicitacao_de_Material.Services
         }
 
         // Get all Materials from the database
-        public IEnumerable<ReadMaterialDto> GetMaterials()
+        public IEnumerable<ReadMaterialDto> GetMaterials(PaginationParameters parameters)
         {
             var materiais = _context.Materiais.Select(material => new ReadMaterialDto
             {
@@ -40,7 +40,9 @@ namespace Solicitacao_de_Material.Services
                 Unidade = material.Unidade,
                 Status = material.Status,
                 DataCriacao = material.DataCriacao
-            });
+            }).Skip((parameters.PageNumber - 1)
+            * parameters.PageSize)
+            .Take(parameters.PageSize);
             return materiais.ToList();
         }
 

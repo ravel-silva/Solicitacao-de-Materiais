@@ -28,13 +28,13 @@ namespace Solicitacao_de_Material.Controllers
             return Ok();
         }
         [HttpGet]
-        public IActionResult GetFuncionarios()
+        public IActionResult GetFuncionarios(PaginationParameters parameters)
         {
-            if (_service.GetCadastroFuncionario() == null || !_service.GetCadastroFuncionario().Any())
+            if (_service.GetCadastroFuncionario(parameters) == null || !_service.GetCadastroFuncionario(parameters).Any())
             {
                 return NotFound("Nenhum funcionario localizado");
             }
-            return Ok(_service.GetCadastroFuncionario());
+            return Ok(_service.GetCadastroFuncionario(parameters));
 
         }
 

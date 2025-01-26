@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Solicitacao_de_Material.Data.Dtos;
+using Solicitacao_de_Material.Model;
 using Solicitacao_de_Material.Services;
 
 namespace Solicitacao_de_Material.Controllers
@@ -29,13 +30,13 @@ namespace Solicitacao_de_Material.Controllers
             return Ok();
         }
         [HttpGet]
-        public IActionResult Requisicoes()
+        public IActionResult Requisicoes(PaginationParameters parameters)
         {
-            if (_service.ViewRequisicoes() == null || !_service.ViewRequisicoes().Any())
+            if (_service.ViewRequisicoes(parameters) == null || !_service.ViewRequisicoes(parameters).Any())
             {
                 return NotFound("Não há solicitações cadastradas no sistema.");
             }
-            var solicitacoes = _service.ViewRequisicoes();
+            var solicitacoes = _service.ViewRequisicoes(parameters);
 
             return Ok(solicitacoes);
         }

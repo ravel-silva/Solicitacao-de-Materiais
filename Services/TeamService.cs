@@ -28,14 +28,16 @@ namespace Solicitacao_de_Material.Services
         }
 
         // This method views the list of teams
-        public IEnumerable<ReadEquipeDto> GetEquipe()
+        public IEnumerable<ReadEquipeDto> GetEquipe(PaginationParameters parameters)
         {
             var equipes = _context.Equipes.Select(equipe => new ReadEquipeDto
             {
                 Id = equipe.Id,
                 Prefixo = equipe.Prefixo,
                 DataCriacao = equipe.DataCriacao
-            });
+            }).Skip((parameters.PageNumber - 1)
+            * parameters.PageSize)
+            .Take(parameters.PageSize);
 
             return equipes.ToList();
         }

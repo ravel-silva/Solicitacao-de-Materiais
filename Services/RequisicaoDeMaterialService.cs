@@ -34,7 +34,7 @@ namespace Solicitacao_de_Material.Services
             _context.RequisicoesDeMaterial.Add(novaRequisicao);
             _context.SaveChanges();
         }
-        public ICollection<ReadRequisicaoDeMaterialDto> ViewRequisicoes()
+        public ICollection<ReadRequisicaoDeMaterialDto> ViewRequisicoes(PaginationParameters parameters)
         {
             return _context.RequisicoesDeMaterial
                 .Include(r => r.Equipe)
@@ -56,7 +56,9 @@ namespace Solicitacao_de_Material.Services
                         Quantidade = m.Quantidade,
                         Unidade = m.Material.Unidade,
                         Status = m.Material.Status
-                    }).ToList()
+                    }).Skip((parameters.PageNumber - 1)
+                       * parameters.PageSize)
+                       .Take(parameters.PageSize).ToList()
                 })
                 .ToList();
         }
