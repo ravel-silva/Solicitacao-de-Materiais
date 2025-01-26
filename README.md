@@ -1,4 +1,4 @@
-# Solicitação de Material 📋
+# Sistema Integrado de Gestão 📋
 
 ## 🚧 Status do Projeto
 
@@ -8,7 +8,7 @@ Atualmente, estou focado em implementar funcionalidades básicas e melhorar a es
 Se você encontrar algum problema ou quiser sugerir melhorias, sinta-se à vontade para abrir uma issue ou contribuir diretamente!  
 
 ## 📖 Sobre o projeto
-O projeto **Solicitação de Material** é uma API desenvolvida em **ASP.NET Core** que gerencia processos relacionados a funcionários,
+O projeto **Sistema Integrado de Gestão** é uma API desenvolvida em **ASP.NET Core** que gerencia processos relacionados a funcionários,
 equipes e materiais em uma organização. Ele permite a criação, consulta, atualização e exclusão de registros, 
 além de estabelecer relacionamentos entre diferentes entidades, como equipes e funcionários.
 
@@ -22,6 +22,8 @@ além de estabelecer relacionamentos entre diferentes entidades, como equipes e 
 - **Relacionamentos**  
   - Associação de funcionários a equipes.
   - Solicitação de materiais por equipes.
+- **Requisições de Material**  
+  - Registro de solicitações de materiais por equipes.
 
 ## 🛠️ Tecnologias Utilizadas
 - **Linguagem:** C#
@@ -35,22 +37,29 @@ além de estabelecer relacionamentos entre diferentes entidades, como equipes e 
   - `EmployeeController`
   - `MaterialController`
   - `TeamController`
+  - `SolicitacaoController`
   - `RelationShipEquipeFuncionarioController`
 - **Models:** Classes que representam as entidades do sistema.  
   - `Equipe`
+  - `EquipeFuncionario`
   - `Funcionario`
+  - `FuncionarioInfo`
+  - `ListMaterial`
   - `Material`
+  - `PaginationParameters`
   - `RequisicaoDeMaterial`
-  - `MateriaisSolicitados`
 - **Services:** Camada de lógica de negócios para abstrair as operações realizadas pelos controladores.
 - **DTOs:** Objetos de transferência de dados para simplificar e padronizar as requisições e respostas.
 
 ## 📋 Estrutura de Dados
+- **Equipe:** Contém prefixo e relacionamento com funcionários. 
+- **Equipe-Funcionário:** Associa equipes a funcionários.
 - **Funcionário:** Gerencia informações como nome e matrícula.  
-- **Equipe:** Contém prefixo e relacionamento com funcionários.  
+- **FuncionárioInfo:** Inclui detalhes como nome, matrícula e equipe.
+- **ListMaterial**: Contém informações sobre materiais solicitados.
 - **Material:** Inclui detalhes como nome, descrição, quantidade e status.  
-- **Requisição de Material:** Relaciona uma equipe e materiais solicitados.  
-- **Relacionamento Equipe-Funcionário:** Define associações entre funcionários e equipes.
+- **PaginationParameters:** Define parâmetros para paginação.
+- **RequisicaoDeMaterial:** Registra solicitações de materiais.
 
 
 ## 🔧 Melhorias Futuras
