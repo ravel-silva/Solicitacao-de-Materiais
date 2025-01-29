@@ -14,7 +14,7 @@ além de estabelecer relacionamentos entre diferentes entidades, como equipes e 
 
 ## 🚀 Funcionalidades
 - **Funcionários**  
-  - Cadastro, consulta, atualização e exclusão de funcionários.
+  	- Cadastro, consulta, atualização e exclusão de funcionários.
 - **Materiais**  
   - Gerenciamento de materiais, incluindo cadastro, consulta, atualização e exclusão.
 - **Equipes**  
