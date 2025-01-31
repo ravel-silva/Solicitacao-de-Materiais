@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Solicitacao_de_Material.Model;
+using Solicitacao_de_Material.Model.Auth;
 
 namespace Solicitacao_de_Material.Data
 {
@@ -13,5 +14,6 @@ namespace Solicitacao_de_Material.Data
         public DbSet<EquipeFuncionario> RelationshipEquipeFuncionario { get; set; }
         public DbSet<Material> Materiais { get; set; }
         public DbSet<RequisicaoDeMaterial> RequisicoesDeMaterial { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
